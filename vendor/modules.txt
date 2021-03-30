@@ -52,11 +52,12 @@ github.com/shopspring/decimal
 github.com/sirupsen/logrus
 # github.com/skycoin/cx v0.7.2-0.20201209010831-a44240bebbaf
 github.com/skycoin/cx/cx
-# github.com/skycoin/cx-chains v0.24.2-0.20201210070414-7d7ad19dd487
+# github.com/skycoin/cx-chains v0.24.2-0.20201210070414-7d7ad19dd487 => ../cx-chains
 ## explicit
 github.com/skycoin/cx-chains/src/api
 github.com/skycoin/cx-chains/src/coin
 github.com/skycoin/cx-chains/src/cx/cxspec
+github.com/skycoin/cx-chains/src/cx/cxspec/alpha
 github.com/skycoin/cx-chains/src/daemon
 github.com/skycoin/cx-chains/src/daemon/gnet
 github.com/skycoin/cx-chains/src/daemon/pex
@@ -171,3 +172,4 @@ google.golang.org/protobuf/runtime/protoiface
 google.golang.org/protobuf/runtime/protoimpl
 # gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776
 gopkg.in/yaml.v3
+# github.com/skycoin/cx-chains => ../cx-chains

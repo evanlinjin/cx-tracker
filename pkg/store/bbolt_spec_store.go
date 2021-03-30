@@ -91,7 +91,7 @@ func (s *BboltSpecStore) AddSpec(ctx context.Context, spec cxspec.SignedChainSpe
 		return fmt.Errorf("failed to encode chain spec: %w", err)
 	}
 
-	genBlock, err := spec.Spec.GenerateGenesisBlock()
+	genBlock, err := spec.Spec.ObtainGenesisBlock()
 	if err != nil {
 		return err
 	}
