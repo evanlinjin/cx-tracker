@@ -61,13 +61,14 @@ func (ws *WrappedChainSpec) UnmarshalJSON(b []byte) error {
 	return err
 }
 
-// func (ws *WrappedChainSpec) MarshalJSON() ([]byte, error) {
-// 	if ws.ChainSpec == nil {
-// 		return []byte("null"), nil
-// 	}
-//
-// 	return json.Marshal(ws.ChainSpec)
-// }
+// MarshalJSON implements json.Marshaler
+func (ws WrappedChainSpec) MarshalJSON() ([]byte, error) {
+	if ws.ChainSpec == nil {
+		return []byte("null"), nil
+	}
+
+	return json.Marshal(ws.ChainSpec)
+}
 
 // SignedChainSpec contains a chain spec alongside a valid signature.
 type SignedChainSpec struct {
