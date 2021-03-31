@@ -44,11 +44,11 @@ type SpecFinalizer func(cs ChainSpec) error
 
 // WrappedChainSpec allows a chain spec to be marshalled/unmarshalled to and
 // from raw JSON data.
-type WrappedChainSpec struct { ChainSpec }
+type WrappedChainSpec struct{ ChainSpec }
 
 // UnmarshalJSON implements json.Unmarshaler
 func (ws *WrappedChainSpec) UnmarshalJSON(b []byte) error {
-	var tempV struct{
+	var tempV struct {
 		Era string `json:"spec_era"`
 	}
 	if err := json.Unmarshal(b, &tempV); err != nil {
@@ -73,8 +73,8 @@ func (ws WrappedChainSpec) MarshalJSON() ([]byte, error) {
 // SignedChainSpec contains a chain spec alongside a valid signature.
 type SignedChainSpec struct {
 	Spec        WrappedChainSpec `json:"spec"`
-	GenesisHash string    `json:"genesis_hash,omitempty"`
-	Sig         string    `json:"sig"` // hex representation of signature
+	GenesisHash string           `json:"genesis_hash,omitempty"`
+	Sig         string           `json:"sig"` // hex representation of signature
 }
 
 // MakeSignedChainSpec generates a signed spec from a ChainSpec and secret key.
@@ -110,7 +110,7 @@ func MakeSignedChainSpec(spec ChainSpec, sk cipher.SecKey) (SignedChainSpec, err
 	}
 
 	signedSpec := SignedChainSpec{
-		Spec:        WrappedChainSpec{ ChainSpec: spec },
+		Spec:        WrappedChainSpec{ChainSpec: spec},
 		GenesisHash: genesis.HashHeader().Hex(),
 		Sig:         sig.Hex(),
 	}

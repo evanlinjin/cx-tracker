@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"path"
 
@@ -82,26 +81,12 @@ func postSpec(ss store.SpecStore) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log := httpLogger(r)
 
-		raw, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			httpWriteError(log, w, http.StatusBadRequest,
-				fmt.Errorf("failed to read request body: %w", err))
-		}
-		fmt.Println(string(raw))
-
 		var spec cxspec.SignedChainSpec
-		if err := json.Unmarshal(raw, &spec); err != nil {
+		if err := json.NewDecoder(r.Body).Decode(&spec); err != nil {
 			httpWriteError(log, w, http.StatusBadRequest,
 				fmt.Errorf("failed to decode spec: %w", err))
 			return
 		}
-
-		//var spec cxspec.SignedChainSpec
-		//if err := json.NewDecoder(r.Body).Decode(&spec); err != nil {
-		//	httpWriteError(log, w, http.StatusBadRequest,
-		//		fmt.Errorf("failed to decode spec: %w", err))
-		//	return
-		//}
 
 		if err := spec.Verify(); err != nil {
 			httpWriteError(log, w, http.StatusBadRequest,
